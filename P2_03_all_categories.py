@@ -10,18 +10,18 @@ books_links= []
 book_info = []
 
 try:
-   os.makedirs('csv/all_categories/')
-   os.makedirs('images/all_categories/')
+    os.makedirs('csv/all_categories/')
+    os.makedirs('images/all_categories/')
 except OSError:
-   pass
+    pass
 else:
-   pass
+    pass
 #**************************************************************** Get 50 links of all website pages
 
 base_url = 'http://books.toscrape.com/catalogue/page-{}.html'
 base_url.format(2)
 
-for i in range(1,2): 
+for i in range(1,51): 
     r = get(base_url.format(i))
     soup = BeautifulSoup(r.text, 'html.parser')
     tags = soup.select('div.image_container a')
@@ -52,18 +52,18 @@ for link in books_links:
     except AttributeError as err:
         info['product_description']= None
 #**************************************************************** Extract all 1000 books images
-    
+  
     name = "./images/all_categories/" + info['universal_ product_code (upc)'] + ".jpg"
     urllib.request.urlretrieve(info['image_url'], name)
 
 #**************************************************************** With pandas create a dataframe of all books
     book_info.append(info)
 df = pd.DataFrame(book_info)
+
 #**************************************************************** and slice it for each category
 
 df_by_category = df.groupby('category')
-
 #**************************************************************** Save in 50 csv files (1/category) 
 
 for k, gr in df_by_category:
-    gr.to_csv('./csv/all_categories/{}.csv'.format(k), encoding='utf8')
+    gr.to_csv('./csv/all_categories/{}.csv'.format(k), index=False, encoding='utf8')

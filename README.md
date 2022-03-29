@@ -53,34 +53,50 @@ run the script
 ```python
 python P2_03_all_categories.py
 ```
-## Results
-#### The following directories will be automatically created 
-
+## Results 
+### *Note: The following directories will be automatically created when you run each scripts*
+***
 #### For one book scraped :
-#### 1 image and 1 csv file will be added in:
 
 ```bash
-  images/one_book/
+# 1 image [ *with "unique number UPC" of the book as name* ]
+  images/one_book/f77dbf2323deb740.jpg
 ```
+
 ```bash
- csv/one_book/
+# 1 csv file [ *with "unique number UPC" of the book as name* ]
+ csv/one_book/f77dbf2323deb740.csv
 ```
-#### For one category scraped
-#### all images of this category and 1 csv file will be added in:
+
+***
+#### **For one category scraped :**
+
 ```bash
-  images/one_category/
+# all images of this category [ with "unique number UPC" of the book as name ]
+  images/one_category/a22124811bfa8350.jpg...
 ```
+
 ```bash
- csv/one_category/
+# 1 csv file [ with the category as name ]
+ csv/one_category/Travel.csv
  ```
-#### For all books scraped
-#### 1000 images and 50 csv files (1 csv/category) will be added in:
+
+***
+#### **For all books scraped :**
+ 
+
 ```bash
-  images/all_categories/
+# 1000 images [ with "unique number UPC" of the book as name ]
+  images/all_categories/a22124811bfa8350.jpg...
 ```
 ```bash
- csv/all_categories/
+# 50 csv files [ with the category as name ] (1 csv/category)
+ csv/all_categories/Travel.csv Art.csv Crime.csv...
+```
+
+***
 ## Author
 
-- Rossignol Hanane [@Rossignol-h](https://github.com/Rossignol-h)
+- Rossignol Hanane 
+- Github Porfile :octocat: [@Rossignol-h](https://github.com/Rossignol-h)
 

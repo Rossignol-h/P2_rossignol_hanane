@@ -98,5 +98,5 @@ python P2_03_all_categories.py
 ## Author
 
 - Rossignol Hanane 
-- Github Porfile :octocat: [@Rossignol-h](https://github.com/Rossignol-h)
+- Github Profile :octocat: [@Rossignol-h](https://github.com/Rossignol-h)
 

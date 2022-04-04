@@ -16,22 +16,28 @@ except OSError:
     pass
 else:
     pass
-#**************************************************************** Get 50 links of all website pages
+#**************************************************************** Get last page of this website
 
-base_url = 'http://books.toscrape.com/catalogue/page-{}.html'
-base_url.format(2)
+base_url = 'https://books.toscrape.com/index.html'
 
-for i in range(1,51): 
-    r = get(base_url.format(i))
-    soup = BeautifulSoup(r.text, 'html.parser')
-    tags = soup.select('div.image_container a')
-#**************************************************************** Get 1000 links of all books
+page_url = (base_url.replace('index.html','')+'catalogue/page-{}.html')
+page_url.format(2)
 
-    for a in tags:
-        all_links = 'https://books.toscrape.com/catalogue/' + a['href']
-        books_links.append(all_links)      
+r = get(base_url)
+soup = BeautifulSoup(r.content, "html.parser")
+num_of_pages= soup.select_one('ul.pager > li.current').get_text(strip=True)[10:]
+last_page = int(num_of_pages) +1
+#**************************************************************** Get all links of all books
+
+for i in range(1,last_page):
+    r = get(page_url.format(i))
+    soup = BeautifulSoup(r.content, 'html.parser')
+    books = soup.select('div.image_container a')
+    
+    for link in books:
+        all_links = 'https://books.toscrape.com/catalogue/' + link['href'].strip("../")
+        books_links.append(all_links)
 #**************************************************************** Extract data of each book
-
 for link in books_links:
     r = get(link)
     soup = BeautifulSoup(r.content,'html.parser')
@@ -52,7 +58,7 @@ for link in books_links:
     except AttributeError as err:
         info['product_description']= None
 #**************************************************************** Extract all 1000 books images
-  
+
     name = "./images/all_categories/" + info['universal_ product_code (upc)'] + ".jpg"
     urllib.request.urlretrieve(info['image_url'], name)
 
@@ -66,4 +72,4 @@ df_by_category = df.groupby('category')
 #**************************************************************** Save in 50 csv files (1/category) 
 
 for k, gr in df_by_category:
-    gr.to_csv('./csv/all_categories/{}.csv'.format(k), index=False, encoding='utf8')
+    gr.to_csv('./csv/all_categories/{}.csv'.format(k), index=False, encoding='utf8')   
